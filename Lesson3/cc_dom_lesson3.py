@@ -29,7 +29,7 @@ def getSoupFromURL(URL, method='get', form={}):
         res = requests.post(URL, data=form)
     else:
         raise ValueError("ERROR: Wrong choice of method -> 'get' or 'post'.")
-    assert res.ok, "WARNING: Bad request to " + URL + " -> status not equal to 200."
+    assert res.ok, "WARNING: Failed to get request from: " + URL
     return BeautifulSoup(res.text, 'lxml')
 
 # Récupérer via crawling la liste des 256 top contributors sur cette page:
@@ -87,14 +87,14 @@ def getPeerReview(users=df_topcontrib['Login']):
     list_peer_review : pandas DataFrame
         list of (login, rating) pairs
     """
-    personal_token = 'caf975f9a565be8b844f64369f42a23c5e0a5112'
+    personal_token = ''
     token_access = '/repos?access_token=' + personal_token
     url_github_api= 'https://api.github.com/users/'
     list_peer_review = []
     for user in users:
         url_profile = url_github_api + user + token_access
         res = requests.get(url_profile)
-        assert res.ok, "WARNING: HTTP request to " + user + "'s GitHub profile -> status not equal to 200."
+        assert res.ok, "WARNING: Failed to get request from {}'s GitHub profile.".format(user)
         user_repos = json.loads(res.text)
         list_count = []
         list_count = [repo['stargazers_count'] for repo in user_repos]
