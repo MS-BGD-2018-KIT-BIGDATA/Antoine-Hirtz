@@ -29,7 +29,7 @@ def getSoupFromURL(URL, method='get', form={}):
         res = requests.post(URL, data=form)
     else:
         raise ValueError("ERROR: Wrong choice of method -> 'get' or 'post'.")
-    assert res.ok, "WARNING: Failed to get request from: " + URL
+    assert res.ok, "WARNING: Failed to get request from URL: {}".format(URL)
     return BeautifulSoup(res.text, 'lxml')
 
 # Récupérer via crawling la liste des 256 top contributors sur cette page:
