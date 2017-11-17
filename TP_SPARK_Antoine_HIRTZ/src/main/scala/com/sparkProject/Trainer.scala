@@ -43,10 +43,11 @@ object Trainer {
       *
       ********************************************************************************/
 
-   /** LOADING PREPROCESSED DATASET **/
+    /** LOADING PREPROCESSED DATASET **/
 
-    val df = spark.sqlContext.read.load("/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
-~
+    val df = spark.sqlContext.read.load("~/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
+    // REMPLACER ~ PAR LE CHEMIN VERS LES FICHIERS .parquet GENERES PAR Preprocessor.scala !
+
     /** TF-IDF **/
 
     /** a. **/
@@ -106,7 +107,7 @@ object Trainer {
       .setFitIntercept(true)
       .setFeaturesCol("features")
       .setLabelCol("final_status")
-      .setStandardization(true)
+      .setStandardization(true)     // Features standardization = true
       .setPredictionCol("predictions")
       .setRawPredictionCol("raw_predictions")
       .setThresholds(Array(0.7, 0.3))
@@ -123,6 +124,8 @@ object Trainer {
     /** TRAINING AND GRID-SEARCH **/
 
     /** j. **/
+
+    // 90% of the data will be used for training (& validation), and the remaining 10% for test.
 
     val Array(training, test) = df.randomSplit(Array(0.90, 0.10))
 
@@ -165,6 +168,9 @@ object Trainer {
     /** m. **/
 
     df_withPredictions.groupBy("final_status", "predictions").count.show()
+
+    model.save("/TP_ParisTech_2017_2018_starter/")
+    // REMPLACER ~ PAR LE CHEMIN VERS LE REPERTOIRE DU PROJET !
 
   }
 
