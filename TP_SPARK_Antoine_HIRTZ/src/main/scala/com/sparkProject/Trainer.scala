@@ -169,7 +169,7 @@ object Trainer {
 
     df_withPredictions.groupBy("final_status", "predictions").count.show()
 
-    model.save("/TP_ParisTech_2017_2018_starter/")
+    model.save("~/TP_ParisTech_2017_2018_starter/")
     // REMPLACER ~ PAR LE CHEMIN VERS LE REPERTOIRE DU PROJET !
 
   }
