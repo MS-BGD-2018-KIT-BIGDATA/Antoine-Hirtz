@@ -45,7 +45,7 @@ object Trainer {
 
     /** LOADING PREPROCESSED DATASET **/
 
-    val df = spark.sqlContext.read.load("/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
+    val df = spark.sqlContext.read.load("~/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
     
     // TODO : remplacer ~ par le chemin vers les fichiers .parquet générés par Preprocessor.scala
 
