@@ -45,8 +45,9 @@ object Trainer {
 
     /** LOADING PREPROCESSED DATASET **/
 
-    val df = spark.sqlContext.read.load("~/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
-    // REMPLACER ~ PAR LE CHEMIN VERS LES FICHIERS .parquet GENERES PAR Preprocessor.scala !
+    val df = spark.sqlContext.read.load("/TP_ParisTech_2017_2018_starter/prepared_trainingset/*")
+    
+    // TODO : remplacer ~ par le chemin vers les fichiers .parquet générés par Preprocessor.scala
 
     /** TF-IDF **/
 
@@ -169,8 +170,11 @@ object Trainer {
 
     df_withPredictions.groupBy("final_status", "predictions").count.show()
 
-    model.save("~/TP_ParisTech_2017_2018_starter/")
-    // REMPLACER ~ PAR LE CHEMIN VERS LE REPERTOIRE DU PROJET !
+    /** Model save. **/
+
+    model.save("~/TP_ParisTech_2017_2018_starter/model/")
+
+    // TODO : remplacer ~ par le chemin vers le répertoire du projet
 
   }
 
